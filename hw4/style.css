@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /*background: url("https://cdn.imgchest.com/files/k46acbz6w7z.png");*/
+    opacity: .5;
+    background-repeat: no-repeat;
+}
+
+.container {
+    max-width: 1400px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.container > * {
+    background-color: lightblue;
+    font-size: 10rem;
+    color: blue;
+    border: 2px dashed blue;
+    flex-grow: 1;
+    height: 201px;
+
+}
+
+.box1 {
+    flex-basis: 921px;
+}
+
+.box2 {
+    flex-basis: 172px;
+}
+
+.box3 {
+    flex-basis: 172px;
+}
+
+.box4 {
+    flex-basis: 100%;
+}
+
+.box5 {
+    flex-basis: 384px;
+}
+
+.box6 {
+    flex-basis: 984px;
+}
