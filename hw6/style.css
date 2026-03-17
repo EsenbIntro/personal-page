@@ -259,8 +259,9 @@ nav a:hover::before, nav a.active::before {
   font-size: 1.5rem;
   background: none;
   border: none;
-  color: var(--color-auca-blue);
+  color: var(--color-text-main);
   cursor: pointer;
+  margin-left: auto;
 }
 
 .theme-toggle {
