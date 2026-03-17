@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Women.kg | AUCA Female Community</title>
+  <meta name="description" content="An exclusive digital community hub for the female demographic of the American University of Central Asia (AUCA).">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Icons (FontAwesome simulation using emojis for standalone, though typically we'd use SVG/CDN) -->
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header id="site-header">
+    <div class="nav-container">
+      <div class="logo">
+        Women<span>.kg</span>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+      <nav>
+        <ul id="nav-menu">
+          <li><a href="#trailblazers" class="nav-link">Trailblazers</a></li>
+          <li><a href="#opportunities" class="nav-link">Opportunities</a></li>
+          <li><a href="#safe-space" class="nav-link">Safe Space</a></li>
+          <li><a href="#campus-pulse" class="nav-link">Campus Pulse</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
+          </li>
+          <li>
+            <button id="auth-btn" class="btn btn-primary" onclick="openLoginModal()">Login</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO / TRAILBLAZERS -->
+  <section id="trailblazers" class="section-padding hero">
+    <div class="hero-blob"></div>
+    <div class="hero-content">
+      <h1>Empowering the Next Generation of AUCA Female Leaders</h1>
+      <p>A digital community hub bridging the gap between academic rigor and social empowerment. Discover stories, find opportunities, and connect with peers.</p>
+      <button class="btn btn-secondary" onclick="document.getElementById('safe-space').scrollIntoView()">Join the Conversation</button>
+    </div>
+    <div class="hero-visual">
+      <div class="glass-card" style="padding: 2rem; max-width: 400px;">
+        <h3>Spotlight</h3>
+        <p><strong>"The Village Girl" Project</strong></p>
+        <p style="font-size: 0.9rem; color: var(--color-text-light); margin: 1rem 0;">A student-led initiative breaking barriers for rural women accessing higher education in Central Asia.</p>
+        <a href="#" style="color: var(--color-auca-gold); font-weight: bold;">Read the Story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOTLIGHT SCROLLER (AUCA Trailblazers) -->
+  <section class="section-padding" style="padding-top: 0;">
+    <h2>Inspiring Alumnae</h2>
+    <div class="spotlight-scroller" id="spotlight-container">
+      <!-- Generated via JS -->
+    </div>
+  </section>
+
+  <!-- OPPORTUNITIES BOARD -->
+  <section id="opportunities" class="section-padding" style="background-color: var(--color-bg-light);">
+    <h2>Opportunities Board</h2>
+    <div class="opportunities-controls">
+      <p style="color: var(--color-text-light);">Find internships, programs, and workshops tailored for you.</p>
+      <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="opp-search" class="category-filter" placeholder="Search opportunities..." onkeyup="filterOpportunities()" style="min-width: 250px;">
+        <select id="opp-filter" class="category-filter" onchange="filterOpportunities()">
+          <option value="all">All Categories</option>
+          <option value="internship">Internships</option>
+          <option value="study-abroad">Study Abroad</option>
+          <option value="workshop">Workshops & Programs</option>
+        </select>
+      </div>
+    </div>
+    <div class="opportunities-grid" id="opportunities-container">
+      <!-- Generated via JS -->
+    </div>
+  </section>
+
+  <!-- THE SAFE SPACE -->
+  <section id="safe-space" class="section-padding">
+    <h2>The Safe Space</h2>
+    <p style="color: var(--color-text-light); margin-bottom: 2rem;">A peer-support environment to nurture leadership. Ask questions and share advice.</p>
+    
+    <div class="safe-space-container">
+      <!-- Feedback Form -->
+      <div class="advice-form-card">
+        <h3>Share your thoughts</h3>
+        <form id="advice-form" onsubmit="submitAdvice(event)">
+          <div class="form-group">
+            <label for="post-title">Topic / Question</label>
+            <input type="text" id="post-title" placeholder="What's on your mind?">
+            <span class="error-msg">Title is required</span>
+          </div>
+          <div class="form-group">
+            <label for="post-content">Details</label>
+            <textarea id="post-content" rows="4" placeholder="Elaborate here..."></textarea>
+            <span class="error-msg">Content is required</span>
+          </div>
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="post-anon">
+            <label for="post-anon" style="margin: 0; font-weight: normal; color: inherit;">Post Anonymously</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Post to Community</button>
+        </form>
+        <p id="auth-warning" style="color: #e74c3c; font-size: 0.85rem; margin-top: 1rem; display: none;">You must be logged in to post.</p>
+      </div>
+      
+      <!-- Feed -->
+      <div class="feed-container" id="feed-container">
+        <!-- Generated via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPUS PULSE -->
+  <section id="campus-pulse" class="section-padding" style="background-color: var(--color-bg-light);">
+    <h2>Campus Pulse</h2>
+    <p style="color: var(--color-text-light); margin-bottom: 2rem;">Live updates from clubs and official university channels.</p>
+    
+    <div class="masonry-grid" id="pulse-container">
+      <p style="grid-column: 1/-1; text-align: center; color: var(--color-text-light);" id="pulse-loading">Loading live feed...</p>
+    </div>
+  </section>
+
+  <footer style="background-color: var(--color-auca-blue); color: white; padding: 3rem 2rem; text-align: center;">
+    <p>&copy; 2026 Women.kg - American University of Central Asia.</p>
+    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Independent Student Initiative.</p>
+  </footer>
+
+  <!-- AUTHENTICATION MODAL -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeLoginModal()">×</button>
+      <div class="auth-header">
+        <h2>Welcome to Women.kg</h2>
+        <p style="color: var(--color-text-light);">Log in with your AUCA account to join the community.</p>
+      </div>
+      <button class="google-btn" onclick="simulateLogin()">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="24" height="24">
+        Sign in with @auca.kg Google Account
+      </button>
+      <div class="auth-disclaimer">
+        ⚠️ <strong>Security Notice:</strong> Logging out of Women.kg does not automatically log you out of your AUCA Google account. Please ensure you sign out of Google fully on shared computers.
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE MODAL (Trailblazers) -->
+  <div class="modal-overlay" id="article-modal">
+    <div class="modal-content article-modal">
+      <button class="modal-close" onclick="closeArticleModal()">×</button>
+      <div class="article-hero" id="article-img"></div>
+      <h2 id="article-title" style="margin-bottom: 0.5rem;" >Title</h2>
+      <p style="color: var(--color-auca-gold); font-weight: bold; margin-bottom: 1.5rem;" id="article-subtitle">Subtitle</p>
+      <div id="article-body" style="color: var(--color-text-main); font-size: 1.05rem; line-height: 1.8;">
+        <!-- Content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Go to top">
+    ↑
+  </button>
+
+  <!-- ====== JAVASCRIPT APPLICATION LOGIC ====== -->
+  <script>
+    (() => {
+    // --- STATE MANAGEMENT ---
+    let isLoggedIn = false;
+    let currentUser = null;
+    window.appObserver = null; // Represents logged-in user
+
+    // --- MOCK DATA ---
+    const trailblazers = [
+      {
+        id: 1,
+        name: "Aliya Suranova",
+        role: "Journalist & Activist",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80",
+        interview: "Aliya has been at the forefront of independent journalism in Central Asia. In this interview, she discusses the challenges of navigating a shifting political landscape and the importance of female voices in media..."
+      },
+      {
+        id: 2,
+        name: "Fatima Yakupbaeva",
+        role: "Business & Legal Expert",
+        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80",
+        interview: "As a leading legal mind, Fatima breaks down the complexities of entrepreneurship for young women in Bishkek. 'The law is a tool for empowerment,' she asserts..."
+      },
+      {
+        id: 3,
+        name: "Aiperi Stambekova",
+        role: "Oxford Graduate & Policy Analyst",
+        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80",
+        interview: "From AUCA to Oxford, Aiperi shares her journey of academic excellence and international policy work. Advice for students: 'Never self-reject. Apply for the program.'"
+      }
+    ];
+
+    const opportunities = [
+      { id: 1, title: "FNSIP Internship", category: "internship", desc: "U.S. Embassy Foreign National Student Intern Program in Bishkek." },
+      { id: 2, title: "UN Women Local Consultant", category: "internship", desc: "Assist with gender-equality policy research in Central Asia." },
+      { id: 3, title: "Bard College PIE", category: "study-abroad", desc: "Program in International Education. Spend a semester in New York." },
+      { id: 4, title: "Social Entrepreneurship Bootcamp", category: "workshop", desc: "Hosted by American Councils. Learn to build community-driven businesses." },
+      { id: 5, title: "OSCE Academy Summer School", category: "workshop", desc: "Intensive program on regional security and human rights." }
+    ];
+
+    // Read posts and login state from LocalStorage on load
+    let posts = JSON.parse(localStorage.getItem('womenkg_posts')) || [
+      { id: 1, author: "Aizhan (Alumna)", content: "Don't stress too much about the senior thesis early on. Focus on finding a topic you genuinely care about, and the research will flow naturally.", time: "2 hours ago", flagged: false, upvotes: 12, upvotedBy: [] },
+      { id: 2, author: "Meerim", content: "Does anyone have tips for the FNSIP interview?", time: "5 hours ago", flagged: false, upvotes: 4, upvotedBy: [] }
+    ];
+
+    // --- INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check auth state
+      const savedAuth = localStorage.getItem('womenkg_auth');
+      if (savedAuth) {
+        isLoggedIn = true;
+        currentUser = JSON.parse(savedAuth);
+        updateAuthUI();
+      }
+      
+      initTheme();
+      renderTrailblazers();
+      renderOpportunities();
+      renderFeed();
+      fetchCampusPulse();
+      setupScrollEffects();
+      setupAnimations();
+      loadDraft();
+      setupMobileMenu();
+    });
+
+    // --- HEADER / SCROLL LOGIC ---
+    
+    function setupAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+      window.appObserver = observer; // Export it to re-use on DOM updates
+    }
+
+    function setupScrollEffects() {
+      const header = document.getElementById('site-header');
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        
+        if (window.scrollY > 500) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+    }
+
+    function setupMobileMenu() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('nav-menu');
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('active');
+      });
+      // Close menu on link click
+      menu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('active');
+        });
+      });
+    }
+
+    // --- AUTHENTICATION FLOW ---
+    function openLoginModal() {
+      if (isLoggedIn) {
+        // Handle Logout
+        isLoggedIn = false;
+        currentUser = null;
+        localStorage.removeItem('womenkg_auth');
+        updateAuthUI();
+      } else {
+        document.getElementById('login-modal').classList.add('active');
+      }
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.remove('active');
+    }
+
+    function simulateLogin() {
+      // Simulate OAuth API delay
+      const btn = document.querySelector('.google-btn');
+      btn.innerHTML = 'Authenticating...';
+      
+      setTimeout(() => {
+        isLoggedIn = true;
+        currentUser = { name: "AUCA Student", email: "student@auca.kg" };
+        localStorage.setItem('womenkg_auth', JSON.stringify(currentUser));
+        
+        closeLoginModal();
+        updateAuthUI();
+        showToast("Successfully signed in", "success");
+        btn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" width="24" height="24"> Sign in with @auca.kg Google Account`;
+      }, 800);
+    }
+
+    function updateAuthUI() {
+      const btn = document.getElementById('auth-btn');
+      if (isLoggedIn) {
+        btn.innerText = "Logout";
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline');
+      } else {
+        btn.innerText = "Login";
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-outline');
+        showToast("Logged out successfully");
+      }
+    }
+
+    // --- THEME LOGIC ---
+    
+    function loadDraft() {
+      const title = localStorage.getItem('womenkg_draft_title');
+      const content = localStorage.getItem('womenkg_draft_content');
+      if(title) document.getElementById('post-title').value = title;
+      if(content) document.getElementById('post-content').value = content;
+      
+      document.getElementById('post-title').addEventListener('input', e => {
+        localStorage.setItem('womenkg_draft_title', e.target.value);
+        e.target.classList.remove('invalid');
+        e.target.closest('.form-group').classList.remove('has-error');
+      });
+      document.getElementById('post-content').addEventListener('input', e => {
+        localStorage.setItem('womenkg_draft_content', e.target.value);
+        e.target.classList.remove('invalid');
+        e.target.closest('.form-group').classList.remove('has-error');
+      });
+    }
+
+    function initTheme() {
+      const toggle = document.getElementById('theme-toggle');
+      
+      // Check local storage or system preference
+      const savedTheme = localStorage.getItem('womenkg_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.innerText = '☀️';
+      }
+      
+      toggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('womenkg_theme', 'light');
+          toggle.innerText = '🌙';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('womenkg_theme', 'dark');
+          toggle.innerText = '☀️';
+        }
+      });
+    }
+
+    // --- TOAST NOTIFICATIONS ---
+    function showToast(message, type = "default") {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type === 'success' ? 'success' : ''}`;
+      toast.innerText = message;
+      
+      container.appendChild(toast);
+      
+      // Trigger reflow to start animation
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400); // Wait for transition
+      }, 3000);
+    }
+
+    // --- TRAILBLAZERS RENDERING ---
+    function renderTrailblazers() {
+      const container = document.getElementById('spotlight-container');
+      container.innerHTML = trailblazers.map(tb => `
+        <div class="glass-card spotlight-card fade-in-up" onclick="openArticle(${tb.id})">
+          <div class="spotlight-img" style="background-image: url('${tb.image}')"></div>
+          <div class="spotlight-info">
+            <h3>${tb.name}</h3>
+            <p>${tb.role}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openArticle(id) {
+      const tb = trailblazers.find(t => t.id === id);
+      if (!tb) return;
+      
+      document.getElementById('article-img').style.backgroundImage = `url('${tb.image}')`;
+      document.getElementById('article-title').innerText = tb.name;
+      document.getElementById('article-subtitle').innerText = tb.role;
+      document.getElementById('article-body').innerText = tb.interview;
+      
+      document.getElementById('article-modal').classList.add('active');
+    }
+
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+    }
+
+    // --- OPPORTUNITIES RENDERING ---
+    function renderOpportunities(filter = 'all', searchQuery = '') {
+      const container = document.getElementById('opportunities-container');
+      
+      let filtered = filter === 'all' ? opportunities : opportunities.filter(o => o.category === filter);
+      
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(o => o.title.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q));
+      }
+      
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-light);">No opportunities found matching your criteria.</p>`;
+        return;
+      }
+      
+      container.innerHTML = filtered.map(opt => `
+        <div class="glass-card opp-card fade-in-up">
+          <span class="opp-tag">${opt.category.replace('-', ' ')}</span>
+          <h3>${opt.title}</h3>
+          <p>${opt.desc}</p>
+          <a href="#" class="opp-link">Apply / Info →</a>
+        </div>
+      `).join('');
+    }
+
+    function filterOpportunities() {
+      const filter = document.getElementById('opp-filter').value;
+      const search = document.getElementById('opp-search').value;
+      renderOpportunities(filter, search);
+    }
+
+    // --- SAFE SPACE LOGIC ---
+    
+    async function fetchCampusPulse() {
+      try {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        const mockApiResponse = {
+          announcements: [
+            { source: "Feminism Club", time: "Today 10:00 AM", text: "Join us this Friday for a panel discussion on Women in Tech in Central Asia! Room 220." },
+            { source: "Theatre Mirrors", time: "Yesterday 4:30 PM", text: "Auditions for the spring play are starting next week. Sign up link in bio." }
+          ],
+          events: [
+            { date: { month: "Mar", day: "20" }, title: "Alumnae Networking Night", details: "Forum, 6:00 PM" },
+            { date: { month: "Mar", day: "25" }, title: "Career Fair 2026", details: "Main Hall, 10:00 AM" }
+          ],
+          images: [
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=300&q=80"
+          ]
+        };
+        
+        const container = document.getElementById('pulse-container');
+        container.innerHTML = `
+          <!-- Mock Telegram Widget -->
+          <div class="masonry-item mock-telegram fade-in-up">
+            <div class="widget-header">
+              <span style="font-size: 1.2rem;">✈️</span> AUCA Announcements
+            </div>
+            <div class="widget-content">
+              ${mockApiResponse.announcements.map(a => `
+                <div class="mock-tg-msg">
+                  <p style="font-size: 0.8rem; color: #777;">${a.source} • ${a.time}</p>
+                  <p>${a.text}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Mock Instagram Gallery -->
+          <div class="masonry-item mock-instagram fade-in-up">
+            <div class="widget-header">
+              <span style="font-size: 1.2rem;">📷</span> @aucakg
+            </div>
+            <div class="widget-content">
+              <div class="grid">
+                ${mockApiResponse.images.map(img => `
+                  <div class="mock-ig-post" style="background-image: url('${img}'); background-size: cover;"></div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Mock Calendar Widget -->
+          <div class="masonry-item fade-in-up">
+            <div class="widget-header">
+              <span style="font-size: 1.2rem;">📅</span> Upcoming Events
+            </div>
+            <div class="widget-content">
+              <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                ${mockApiResponse.events.map(ev => `
+                  <li style="display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+                    <div style="background: var(--color-auca-gold); color: var(--color-auca-blue); padding: 0.5rem; text-align: center; border-radius: 8px; min-width: 60px;">
+                      <span style="display: block; font-size: 0.8rem; text-transform: uppercase;">${ev.date.month}</span>
+                      <span style="display: block; font-size: 1.2rem; font-weight: bold;">${ev.date.day}</span>
+                    </div>
+                    <div>
+                      <strong>${ev.title}</strong>
+                      <p style="font-size: 0.8rem; color: #777;">${ev.details}</p>
+                    </div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+        if (window.appObserver) {
+           document.querySelectorAll('#pulse-container .fade-in-up').forEach(el => window.appObserver.observe(el));
+        }
+      } catch (err) {
+        document.getElementById('pulse-container').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #e74c3c;">Failed to load live feed.</p>';
+      }
+    }
+
+    function renderFeed() {
+      const container = document.getElementById('feed-container');
+      container.innerHTML = posts.slice().reverse().map(post => {
+        const hasUpvoted = isLoggedIn && post.upvotedBy && post.upvotedBy.includes(currentUser.email);
+        
+        return `
+        <div class="post-card" style="opacity: ${post.flagged ? 0.5 : 1}">
+          <div class="post-header">
+            <div class="post-author">
+              <span style="background: var(--color-bg-light); padding: 5px; border-radius: 50%;">👩‍🎓</span> 
+              ${post.author}
+            </div>
+            <div class="post-meta">
+              <span>${post.time}</span>
+              <button class="action-btn heart-btn ${hasUpvoted ? 'liked' : ''}" onclick="upvotePost(${post.id})" title="Like">
+                ${hasUpvoted ? '❤️' : '🤍'} ${post.upvotes || 0}
+              </button>
+              ${!post.flagged ? `<button class="action-btn flag-btn" onclick="flagPost(${post.id})" title="Flag for review">🚩</button>` : '<span style="color: #e74c3c; font-size: 0.8rem;">Flagged</span>'}
+            </div>
+          </div>
+          <h4>${post.title || 'Community Advice'}</h4>
+          <p style="margin-top: 0.5rem;">${post.content}</p>
+        </div>
+        `;
+      }).join('');
+    }
+
+    function submitAdvice(e) {
+      e.preventDefault();
+      
+      const warning = document.getElementById('auth-warning');
+      if (!isLoggedIn) {
+        warning.style.display = 'block';
+        return;
+      }
+      warning.style.display = 'none';
+
+      
+      // Form Validation 
+      let isValid = true;
+      const titleEl = document.getElementById('post-title');
+      const contentEl = document.getElementById('post-content');
+      
+      if (!titleEl.value.trim()) { 
+        titleEl.classList.add('invalid'); 
+        titleEl.closest('.form-group').classList.add('has-error');
+        isValid = false; 
+      }
+      if (!contentEl.value.trim()) { 
+        contentEl.classList.add('invalid'); 
+        contentEl.closest('.form-group').classList.add('has-error');
+        isValid = false; 
+      }
+      
+      if (!isValid) {
+        showToast("Please fill out all required fields.", "error");
+        return;
+      }
+
+      const title = document.getElementById('post-title').value;
+      const content = document.getElementById('post-content').value;
+      const isAnon = document.getElementById('post-anon').checked;
+      
+      const newPost = {
+        id: Date.now(),
+        title: title,
+        content: content,
+        author: isAnon ? "AUCA Peer Mentor (Anonymous)" : currentUser.name,
+        time: "Just now",
+        flagged: false,
+        upvotes: 0,
+        upvotedBy: []
+      };
+      
+      posts.push(newPost);
+      localStorage.setItem('womenkg_posts', JSON.stringify(posts));
+      
+      // Reset form
+      document.getElementById('advice-form').reset();
+      localStorage.removeItem('womenkg_draft_title');
+      localStorage.removeItem('womenkg_draft_content');
+      
+      showToast("Post submitted successfully", "success");
+      
+      // Re-render
+      renderFeed();
+    }
+
+    function upvotePost(id) {
+      if (!isLoggedIn) {
+        showToast("Please log in to upvote posts");
+        return;
+      }
+      
+      const postIndex = posts.findIndex(p => p.id === id);
+      if (postIndex !== -1) {
+        const post = posts[postIndex];
+        post.upvotedBy = post.upvotedBy || [];
+        post.upvotes = post.upvotes || 0;
+        
+        const userIndex = post.upvotedBy.indexOf(currentUser.email);
+        
+        if (userIndex === -1) {
+          // Add upvote
+          post.upvotes++;
+          post.upvotedBy.push(currentUser.email);
+        } else {
+          // Remove upvote (toggle)
+          post.upvotes--;
+          post.upvotedBy.splice(userIndex, 1);
+        }
+        
+        localStorage.setItem('womenkg_posts', JSON.stringify(posts));
+        renderFeed();
+      }
+    }
+
+    function flagPost(id) {
+      if (!isLoggedIn) {
+        showToast("Please log in to flag posts");
+        return;
+      }
+      
+      const postIndex = posts.findIndex(p => p.id === id);
+      if (postIndex !== -1) {
+        posts[postIndex].flagged = true;
+        localStorage.setItem('womenkg_posts', JSON.stringify(posts));
+        showToast("Post flagged for moderation", "success");
+        renderFeed();
+      }
+    }
+    })();
+  </script>
+</body>
+</html>
