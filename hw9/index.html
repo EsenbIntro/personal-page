@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 9</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button class="buttonMenu fa fa-bars"></button>
+    <!-- <img src='https://cdn.imgchest.com/files/84apc38zx4l.png' style='position: absolute; top:0; left:0;z-index:-1'> -->
+    <div class="container">
+      <div class="box1">1</div>
+      <div class="box2">2</div>
+      <div class="box3">
+        <div class="tovar">Товары</div>
+        <ul class="outer_box">
+            <li class="elect">Электроника</li>
+            <li class="comput">Компьютеры</li>
+            <li class="applience">Бытовая техника</li>
+            <li class="beauty">Красота и Здоровье</li>
+            <li class="clothes">Одежда и Аксессуары</li>
+            <li class="kids">Детские товары</li>
+            <li class="sport">Спорт и Отдых</li>
+            <li class="auto">Автотовары</li>
+            <li class="home">Дом Сад Ремонт</li>
+            <li class="kitchen">Посуда</li>
+            <li class="books">Книги</li>
+        </ul>
+      </div>
+      <div class="box4">4</div>
+      <div class="box5">5</div>
+      <div class="box6">6</div>
+      <div class="box7">7</div>
+      <div class="box8">8</div>
+      <div class="box9">9</div>
+    </div>
+    <script>
+        const buttonMenu = document.querySelector('.buttonMenu')
+        const boxThree = document.querySelector('.box3')
+
+        buttonMenu.addEventListener('click', () => {
+            buttonMenu.classList.toggle('mobileMenu')
+            boxThree.classList.toggle('mobileMenu')
+        })
+    </script>
+  </body>
+</html>
